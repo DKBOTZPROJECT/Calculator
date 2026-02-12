@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Neon Calculator</title>
+<title>Calculator</title>
 
 <style>
 *{
@@ -19,17 +19,17 @@ body{
     height:100vh;
 }
 
-/* Calculator */
-#calculator{
-    width:330px;
+/* Calculator Box */
+.calculator{
+    width:320px;
     background:#111;
     padding:15px;
     border-radius:15px;
-    box-shadow:0 0 20px #00ffff55;
+    box-shadow:0 0 15px #00ffff55;
 }
 
 /* Display */
-#display{
+.display{
     width:100%;
     height:70px;
     background:#000;
@@ -40,17 +40,17 @@ body{
     border-radius:10px;
     padding:10px;
     margin-bottom:12px;
-    box-shadow:inset 0 0 10px #00ffff66;
+    box-shadow:inset 0 0 8px #00ffff66;
 }
 
-/* Grid */
+/* Grid Layout */
 .buttons{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
     gap:10px;
 }
 
-/* Buttons */
+/* Button Base */
 button{
     height:65px;
     font-size:1.5em;
@@ -63,104 +63,105 @@ button{
 }
 
 /* Numbers */
-.number:hover{
+.num:hover{
     background:#333;
-    box-shadow:0 0 8px #00ffffaa;
 }
 
-/* Operators */
-.operator{
+/* Operators (right column) */
+.op{
     background:#2a0033;
-    box-shadow:0 0 8px magenta;
 }
 
-.operator:hover{
+.op:hover{
     background:#3a0047;
 }
 
 /* Equals */
-#equals{
+.equals{
     background:#003300;
-    box-shadow:0 0 10px #00ff00;
 }
 
-#equals:hover{
+.equals:hover{
     background:#005500;
 }
 
 /* Clear */
-#clear{
+.clear{
     background:#330000;
-    box-shadow:0 0 8px red;
 }
 
-#clear:hover{
+.clear:hover{
     background:#550000;
 }
 
-/* 0 button double width */
+/* 0 double width */
 .zero{
     grid-column:span 2;
 }
 
 /* Mobile */
 @media(max-width:400px){
-    #calculator{width:95%;}
+    .calculator{width:95%;}
     button{height:60px;font-size:1.3em;}
-    #display{height:65px;font-size:2.2em;}
+    .display{height:65px;font-size:2.2em;}
 }
 </style>
 </head>
 
 <body>
 
-<div id="calculator">
+<div class="calculator">
 
-<input type="text" id="display" disabled>
+<input type="text" id="display" class="display" disabled>
 
 <div class="buttons">
 
-<button id="clear" onclick="clearDisplay()">C</button>
-<button class="operator" onclick="append('/')">÷</button>
-<button class="operator" onclick="append('*')">×</button>
-<button class="operator" onclick="append('-')">−</button>
+<!-- Row 1 -->
+<button class="clear" onclick="clearDisplay()">C</button>
+<button class="op" onclick="append('/')">÷</button>
+<button class="op" onclick="append('*')">×</button>
+<button class="op" onclick="append('-')">−</button>
 
-<button class="number" onclick="append('7')">7</button>
-<button class="number" onclick="append('8')">8</button>
-<button class="number" onclick="append('9')">9</button>
-<button class="operator" onclick="append('+')">+</button>
+<!-- Row 2 -->
+<button class="num" onclick="append('7')">7</button>
+<button class="num" onclick="append('8')">8</button>
+<button class="num" onclick="append('9')">9</button>
+<button class="op" onclick="append('+')">+</button>
 
-<button class="number" onclick="append('4')">4</button>
-<button class="number" onclick="append('5')">5</button>
-<button class="number" onclick="append('6')">6</button>
-<button id="equals" onclick="calculate()">=</button>
+<!-- Row 3 -->
+<button class="num" onclick="append('4')">4</button>
+<button class="num" onclick="append('5')">5</button>
+<button class="num" onclick="append('6')">6</button>
+<button class="equals" onclick="calculate()">=</button>
 
-<button class="number" onclick="append('1')">1</button>
-<button class="number" onclick="append('2')">2</button>
-<button class="number" onclick="append('3')">3</button>
-<button class="number" onclick="append('.')">.</button>
+<!-- Row 4 -->
+<button class="num" onclick="append('1')">1</button>
+<button class="num" onclick="append('2')">2</button>
+<button class="num" onclick="append('3')">3</button>
+<button class="num" onclick="append('.')">.</button>
 
-<button class="number zero" onclick="append('0')">0</button>
+<!-- Row 5 -->
+<button class="num zero" onclick="append('0')">0</button>
 
 </div>
 </div>
 
 <script>
-function append(val){
-    document.getElementById("display").value += val;
+function append(v){
+    document.getElementById("display").value += v;
 }
 
 function clearDisplay(){
-    document.getElementById("display").value="";
+    document.getElementById("display").value = "";
 }
 
 function calculate(){
-    let exp=document.getElementById("display").value;
+    let exp = document.getElementById("display").value;
     try{
         if(exp.trim()==="") return;
-        document.getElementById("display").value=eval(exp);
+        document.getElementById("display").value = eval(exp);
     }catch{
-        document.getElementById("display").value="Error";
+        document.getElementById("display").value = "Error";
         setTimeout(clearDisplay,1000);
     }
 }
